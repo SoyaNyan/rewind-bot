@@ -1,0 +1,34 @@
+{
+	"name": "rewind-bot",
+	"version": "1.0.0",
+	"description": "discord bot for rewind realm minecraft server",
+	"main": "app.ts",
+	"repository": "https://github.com/SoyaNyan/rewind-bot.git",
+	"author": "SoyaNyan <nyan@soya.moe>",
+	"license": "MIT",
+	"scripts": {
+		"build": "tsc -p . && copy src\\config\\.env dist\\src\\config\\.env",
+		"start": "pm2 start ecosystem.config.js",
+		"start:dev": "tsc-watch --onSuccess \"ts-node dist/src/app.js\"",
+		"creg": "tsc -p . && copy src\\config\\.env dist\\src\\config\\.env && ts-node dist/src/deploy-commands.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"dependencies": {
+		"@discordjs/builders": "^1.3.0",
+		"@discordjs/rest": "^1.3.0",
+		"dayjs": "^1.11.6",
+		"discord.js": "^14.6.0",
+		"dotenv": "^16.0.2",
+		"minecraft-server-util": "^5.3.1",
+		"mongoose": "^6.7.2",
+		"winston": "^3.8.2",
+		"winston-daily-rotate-file": "^4.7.1"
+	},
+	"devDependencies": {
+		"@types/node": "^18.11.9",
+		"nodemon": "^2.0.19",
+		"ts-node": "^10.9.1",
+		"tsc-watch": "^5.0.3",
+		"typescript": "^4.8.3"
+	}
+}
