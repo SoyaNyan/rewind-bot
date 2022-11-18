@@ -147,9 +147,9 @@ attendanceScheme.static('getMonthlyRank', function getMonthlyRank(yearMonth, cou
 					$options: 'i',
 				},
 				approved: true,
-				username: {
-					$ne: 'SOYANYAN',
-				},
+				// username: {
+				// 	$ne: 'SOYANYAN',
+				// },
 			},
 		},
 		{

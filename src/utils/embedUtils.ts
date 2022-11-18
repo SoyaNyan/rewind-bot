@@ -15,10 +15,12 @@ type AttendancePayloadType = {
 	approved: boolean
 	monthly: number
 }
-type MonthlyAttendanceDataType = {
+export type MonthlyAttendanceDataType = {
+	_id: string
 	username: string
-	playTimeKR: string
 	totalAttd: number
+	totalPlaytime: number
+	playTimeKR?: string
 }
 
 /**
