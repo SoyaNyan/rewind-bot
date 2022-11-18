@@ -13,6 +13,7 @@ import {
 	getMonthlyAttendance,
 	getMonthlyRanking,
 	getTodayAttendance,
+	updateApproveState,
 } from '../utils/attendanceUtils'
 import {
 	attendanceEmbed,
@@ -46,7 +47,7 @@ const attendance = {
 				.addStringOption((option) =>
 					option.setName('닉네임').setDescription('마인크래프트 닉네임').setRequired(true)
 				)
-				.addIntegerOption((option) =>
+				.addStringOption((option) =>
 					option
 						.setName('출석일자')
 						.setDescription('출석을 인정할 날짜 ex. 2022-11-11')
@@ -60,7 +61,7 @@ const attendance = {
 				.addStringOption((option) =>
 					option.setName('닉네임').setDescription('마인크래프트 닉네임').setRequired(true)
 				)
-				.addIntegerOption((option) =>
+				.addStringOption((option) =>
 					option
 						.setName('출석일자')
 						.setDescription('출석을 인정할 날짜 ex. 2022-11-11')
@@ -152,7 +153,41 @@ const attendance = {
 				embeds: [logEmbed],
 			})
 		} else if (subCommand === '인정') {
+			// update attendance log
+			const res = await updateApproveState(playerName, dateKey, true)
+
+			// check result
+			if (!res) {
+				logger.error(`[Discord.js] 😣 출석로그 업데이트에 실패했어요!`)
+				await interaction.editReply(`😣 출석로그 업데이트에 실패했어요!`)
+				return
+			}
+
+			// log
+			logger.info(`[Discord.js] 🔮 ${playerName}님의 ${dateKey}일자 출석로그를 업데이트 했습니다!`)
+
+			// reply to user
+			await interaction.editReply(
+				`🔮 ${playerName}님의 ${dateKey}일자 출석로그를 업데이트 했습니다!`
+			)
 		} else if (subCommand === '철회') {
+			// update attendance log
+			const res = await updateApproveState(playerName, dateKey, false)
+
+			// check result
+			if (!res) {
+				logger.error(`[Discord.js] 😣 출석로그 업데이트에 실패했어요!`)
+				await interaction.editReply(`😣 출석로그 업데이트에 실패했어요!`)
+				return
+			}
+
+			// log
+			logger.info(`[Discord.js] 🔮 ${playerName}님의 ${dateKey}일자 출석로그를 업데이트 했습니다!`)
+
+			// reply to user
+			await interaction.editReply(
+				`🔮 ${playerName}님의 ${dateKey}일자 출석로그를 업데이트 했습니다!`
+			)
 		} else if (subCommand === '랭킹') {
 			// get monthly attendance ranking
 			const rankingData = await getMonthlyRanking(rankYearMonth, rankCount)

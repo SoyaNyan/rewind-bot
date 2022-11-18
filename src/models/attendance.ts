@@ -24,8 +24,6 @@ interface AttendanceModel extends Model<Attendance> {
 	logAttendance: (payload: AttendancePayload) => Promise<void>
 	updateAttendance: (username: string, dateKey: string, payload: AttendancePayload) => Promise<any>
 	getTodayAttendance: (username: string, dateKey: string) => Promise<any>
-	approveAttendance: (username: string, dateKey: string) => Promise<any>
-	disapproveAttendance: (username: string, dateKey: string) => Promise<any>
 	getMonthlyAttendance: (username: string, start: string, end: string) => Promise<any>
 	getMonthlyRank: (yearMonth: string, count: number) => Promise<any>
 }
@@ -87,38 +85,6 @@ attendanceScheme.static('updateAttendance', function updateAttendance(username, 
  */
 attendanceScheme.static('getTodayAttendance', function getTodayAttendance(username, dateKey) {
 	return this.findOne({ username, dateKey })
-})
-
-/**
- * Update user's attendance data as approved on specific date
- */
-attendanceScheme.static('approveAttendance', function approveAttendance(username, dateKey) {
-	return this.findOneAndUpdate(
-		{
-			username,
-			dateKey,
-		},
-		{
-			approved: true,
-		},
-		{ new: true }
-	)
-})
-
-/**
- * Update user's attendance data as disapproved on specific date
- */
-attendanceScheme.static('disapproveAttendance', function disapproveAttendance(username, dateKey) {
-	return this.findOneAndUpdate(
-		{
-			username,
-			dateKey,
-		},
-		{
-			approved: false,
-		},
-		{ new: true }
-	)
 })
 
 /**

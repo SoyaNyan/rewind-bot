@@ -82,6 +82,16 @@ const updateLastLogout = async (username: string) => {
 }
 
 /**
+ * update approve state of attendance log
+ */
+const updateApproveState = async (username: string, dateKey: string, state: boolean) => {
+	// update document
+	return await Attendance.updateAttendance(username, dateKey, {
+		approved: state,
+	})
+}
+
+/**
  * get monthly attendance stats
  */
 const getMonthlyAttendance = async (yearMonth: string, username: string) => {
@@ -107,6 +117,7 @@ export {
 	getTodayAttendance,
 	updateLastLogin,
 	updateLastLogout,
+	updateApproveState,
 	getMonthlyAttendance,
 	getMonthlyRanking,
 }
