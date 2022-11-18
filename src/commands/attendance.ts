@@ -34,6 +34,20 @@ const attendance = {
 		)
 		.addSubcommand((subcommand) =>
 			subcommand
+				.setName('철회')
+				.setDescription('[관리자] 특정 유저의 출석을 인정을 철회합니다.')
+				.addStringOption((option) =>
+					option.setName('닉네임').setDescription('마인크래프트 닉네임').setRequired(true)
+				)
+				.addIntegerOption((option) =>
+					option
+						.setName('출석일자')
+						.setDescription('출석을 인정할 날짜 ex. 2022-11-11')
+						.setRequired(true)
+				)
+		)
+		.addSubcommand((subcommand) =>
+			subcommand
 				.setName('랭킹')
 				.setDescription('[관리자] 월간 출석 랭킹을 조회합니다.')
 				.addStringOption((option) =>

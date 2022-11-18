@@ -11,6 +11,10 @@ import logger from '../winston/winston.js'
 import * as config from './config/config'
 const { DISCORD_CLIENT_ID, DISCORD_TOKEN, GUILD_ID } = config
 
+// types
+type RESTAPIRoutesType = `/${string}`
+
+// main
 ;(async () => {
 	// get commands
 	const commands: Array<RESTPostAPIApplicationCommandsJSONBody> = []
@@ -28,9 +32,12 @@ const { DISCORD_CLIENT_ID, DISCORD_TOKEN, GUILD_ID } = config
 
 	// register commands
 	rest
-		.put(Routes.applicationGuildCommands(DISCORD_CLIENT_ID, GUILD_ID), {
-			body: commands,
-		})
+		.put(
+			Routes.applicationGuildCommands(DISCORD_CLIENT_ID, GUILD_ID) as unknown as RESTAPIRoutesType,
+			{
+				body: commands,
+			}
+		)
 		.then(() => {
 			logger.info('[Discord.js] Successfully registered application commands.')
 		})

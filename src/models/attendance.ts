@@ -2,7 +2,7 @@
 import { Schema, model, Model } from 'mongoose'
 
 // types
-type AttendanceType = {
+interface Attendance {
 	dateKey: string
 	username: string
 	firstLogin: string
@@ -11,10 +11,27 @@ type AttendanceType = {
 	playTime: number
 	approved: boolean
 }
-type AttendanceModelType = Model<AttendanceType>
+interface AttendancePayload {
+	dateKey?: string
+	username?: string
+	firstLogin?: string
+	lastLogin?: string
+	lastLogout?: string
+	playTime?: number
+	approved?: boolean
+}
+interface AttendanceModel extends Model<Attendance> {
+	logAttendance: (payload: AttendancePayload) => Promise<void>
+	updateAttendance: (username: string, dateKey: string, payload: AttendancePayload) => Promise<any>
+	getTodayAttendance: (username: string, dateKey: string) => Promise<any>
+	approveAttendance: (username: string, dateKey: string) => Promise<any>
+	disapproveAttendance: (username: string, dateKey: string) => Promise<any>
+	getMonthlyAttendance: (username: string, start: string, end: string) => Promise<any>
+	getMonthlyRank: (yearMonth: string, count: number) => Promise<any>
+}
 
 // define scheme
-const attendanceScheme = new Schema<AttendanceType>(
+const attendanceScheme = new Schema<Attendance, AttendanceModel>(
 	{
 		dateKey: {
 			type: String,
@@ -52,16 +69,30 @@ const attendanceScheme = new Schema<AttendanceType>(
 /**
  * Save single attendance data
  */
-attendanceScheme.static('create', function (payload) {
+attendanceScheme.static('logAttendance', function logAttendance(payload) {
 	// save data
 	const attendance = new this(payload)
 	return attendance.save()
 })
 
 /**
+ * Update single attendance data
+ */
+attendanceScheme.static('updateAttendance', function updateAttendance(username, dateKey, payload) {
+	return this.findOneAndUpdate({ username, dateKey }, payload, { new: true })
+})
+
+/**
+ * Get today's attendance log of specific user
+ */
+attendanceScheme.static('getTodayAttendance', function getTodayAttendance(username, dateKey) {
+	return this.findOne({ username, dateKey })
+})
+
+/**
  * Update user's attendance data as approved on specific date
  */
-attendanceScheme.static('approveAttendance', function (username, dateKey) {
+attendanceScheme.static('approveAttendance', function approveAttendance(username, dateKey) {
 	return this.findOneAndUpdate(
 		{
 			username,
@@ -75,20 +106,39 @@ attendanceScheme.static('approveAttendance', function (username, dateKey) {
 })
 
 /**
+ * Update user's attendance data as disapproved on specific date
+ */
+attendanceScheme.static('disapproveAttendance', function disapproveAttendance(username, dateKey) {
+	return this.findOneAndUpdate(
+		{
+			username,
+			dateKey,
+		},
+		{
+			approved: false,
+		},
+		{ new: true }
+	)
+})
+
+/**
  * Get monthly attendance of user
  */
-attendanceScheme.static('getMonthlyAttendance', function (username, start, end) {
-	return this.find({
-		username,
-		createdAt: { $gte: new Date(start), $lt: new Date(end) },
-		approved: true,
-	})
-})
+attendanceScheme.static(
+	'getMonthlyAttendance',
+	function getMonthlyAttendance(username, start, end) {
+		return this.find({
+			username,
+			createdAt: { $gte: new Date(start), $lt: new Date(end) },
+			approved: true,
+		})
+	}
+)
 
 /**
  * Find top N user of specific month range
  */
-attendanceScheme.static('getMonthlyRank', function (yearMonth, count) {
+attendanceScheme.static('getMonthlyRank', function getMonthlyRank(yearMonth, count) {
 	return this.aggregate([
 		{
 			$match: {
@@ -126,6 +176,6 @@ attendanceScheme.static('getMonthlyRank', function (yearMonth, count) {
 })
 
 // create model
-const Attendance = model<AttendanceType, AttendanceModelType>('Attendance', attendanceScheme)
+const Attendance = model<Attendance, AttendanceModel>('attendance', attendanceScheme)
 
 export default Attendance

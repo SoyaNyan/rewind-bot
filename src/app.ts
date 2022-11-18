@@ -17,6 +17,8 @@ connectDB()
 			GatewayIntentBits.Guilds,
 			GatewayIntentBits.GuildMembers,
 			GatewayIntentBits.GuildMessages,
+			GatewayIntentBits.GuildWebhooks,
+			GatewayIntentBits.MessageContent,
 		],
 	})
 
