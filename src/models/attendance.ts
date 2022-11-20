@@ -1,6 +1,10 @@
 // packages
 import { Schema, model, Model } from 'mongoose'
 
+// get configs
+import * as config from '../config/config'
+const { ATTENDANCE_WEEKLY_MIN_COUNT } = config
+
 // types
 interface Attendance {
 	dateKey: string
@@ -25,6 +29,7 @@ interface AttendanceModel extends Model<Attendance> {
 	updateAttendance: (username: string, dateKey: string, payload: AttendancePayload) => Promise<any>
 	getTodayAttendance: (username: string, dateKey: string) => Promise<any>
 	getMonthlyAttendance: (username: string, start: string, end: string) => Promise<any>
+	getWeeklyStats: (start: string, end: string) => Promise<any>
 	getMonthlyRank: (yearMonth: string, count: number) => Promise<any>
 }
 
@@ -95,11 +100,55 @@ attendanceScheme.static(
 	function getMonthlyAttendance(username, start, end) {
 		return this.find({
 			username,
-			createdAt: { $gte: new Date(start), $lt: new Date(end) },
+			createdAt: {
+				$gte: new Date(start),
+				$lt: new Date(end),
+			},
 			approved: true,
 		})
 	}
 )
+
+/**
+ * Check weekly attendance stats
+ */
+attendanceScheme.static('getWeeklyStats', function getWeeklyStats(start, end) {
+	return this.aggregate([
+		{
+			$match: {
+				createdAt: {
+					$gte: new Date(start),
+					$lt: new Date(end),
+				},
+				approved: true,
+			},
+		},
+		{
+			$group: {
+				_id: '$username',
+				totalAttd: {
+					$sum: 1,
+				},
+				totalPlayTime: {
+					$sum: '$playTime',
+				},
+			},
+		},
+		{
+			$match: {
+				totalAttd: {
+					$gte: parseInt(ATTENDANCE_WEEKLY_MIN_COUNT),
+				},
+			},
+		},
+		{
+			$sort: {
+				totalAttd: -1,
+				totalPlaytime: -1,
+			},
+		},
+	])
+})
 
 /**
  * Find top N user of specific month range

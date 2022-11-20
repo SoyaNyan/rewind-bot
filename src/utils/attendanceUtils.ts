@@ -104,6 +104,17 @@ const getMonthlyAttendance = async (yearMonth: string, username: string) => {
 }
 
 /**
+ * get weekly attendance stats
+ */
+const getWeeklyAttendance = async (start: string) => {
+	const weekStart = `${start}T00:00:00.000+09:00`
+	const weekEnd = `${dayjs(start).add(7, 'days').format('YYYY-MM-DD')}T00:00:00.000+09:00`
+
+	// get weekly attendance
+	return await Attendance.getWeeklyStats(weekStart, weekEnd)
+}
+
+/**
  * get monthly attendance ranking
  */
 const getMonthlyRanking = async (yearMonth: string, count: number) => {
@@ -118,5 +129,6 @@ export {
 	updateLastLogout,
 	updateApproveState,
 	getMonthlyAttendance,
+	getWeeklyAttendance,
 	getMonthlyRanking,
 }

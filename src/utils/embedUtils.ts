@@ -77,6 +77,50 @@ export const attendanceEmbed = (payload: AttendancePayloadType) => {
 }
 
 /**
+ * weekly attendance embed
+ */
+export const weeklyAttendanceEmbed = (
+	weekStart: string,
+	weekEnd: string,
+	data: Array<MonthlyAttendanceDataType>,
+	start = 0
+) => {
+	// create embed
+	const embed = new EmbedBuilder()
+		.setColor('#A2E1DB')
+		.setTitle(`📅  ${weekStart}~${weekEnd} 주간 출석 달성현황`)
+		.setDescription('이번 주 7회 출석을 달성했어요! 🎉')
+		.setThumbnail(AUTHOR_IMAGE)
+		.setFooter({
+			text: `Rewind Again - ${dayjs().format('YYYY-MM-DD HH:mm:ss')}`,
+			iconURL: FOOTER_IMAGE,
+		})
+
+	// add fields
+	data.forEach((item, index) => {
+		embed.addFields(
+			{
+				name: `TOP ${index + 1 + start}`,
+				value: `${item.username}`,
+				inline: true,
+			},
+			{
+				name: `누적 접속시간`,
+				value: `${item.playTimeKR}`,
+				inline: true,
+			},
+			{
+				name: `출석횟수`,
+				value: `${item.totalAttd}회`,
+				inline: true,
+			}
+		)
+	})
+
+	return embed
+}
+
+/**
  * attendance ranking embed
  */
 export const attendanceRankingEmbed = (

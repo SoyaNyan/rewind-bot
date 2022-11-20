@@ -13,12 +13,14 @@ import {
 	getMonthlyAttendance,
 	getMonthlyRanking,
 	getTodayAttendance,
+	getWeeklyAttendance,
 	updateApproveState,
 } from '../utils/attendanceUtils'
 import {
 	attendanceEmbed,
 	attendanceRankingEmbed,
 	MonthlyAttendanceDataType,
+	weeklyAttendanceEmbed,
 } from '../utils/embedUtils'
 
 // get configs
@@ -70,6 +72,17 @@ const attendance = {
 		)
 		.addSubcommand((subcommand) =>
 			subcommand
+				.setName('주간')
+				.setDescription('[관리자] 주간 출석 달성 현황을 조회합니다.')
+				.addStringOption((option) =>
+					option
+						.setName('기준일자')
+						.setDescription('주간 출석 기준일자(시작일) ex. 2022-11-11')
+						.setRequired(true)
+				)
+		)
+		.addSubcommand((subcommand) =>
+			subcommand
 				.setName('랭킹')
 				.setDescription('[관리자] 월간 출석 랭킹을 조회합니다.')
 				.addStringOption((option) =>
@@ -95,6 +108,7 @@ const attendance = {
 		const subCommand = options.getSubcommand()
 		const playerName = options.getString('닉네임') as string
 		const dateKey = options.getString('출석일자') as string
+		const weekStart = options.getString('기준일자') as string
 		const rankYearMonth = options.getString('조회기간') as string
 		const rankCount = options.getInteger('랭킹범위') as number
 
@@ -188,6 +202,65 @@ const attendance = {
 			await interaction.editReply(
 				`🔮 ${playerName}님의 ${dateKey}일자 출석로그를 업데이트 했습니다!`
 			)
+		} else if (subCommand === '주간') {
+			const weekEnd = dayjs(weekStart).add(6, 'days').format('YYYY-MM-DD')
+
+			// get weekly attendance stats
+			const weeklyData = await getWeeklyAttendance(weekStart)
+
+			// check stats data
+			if (!weeklyData || weeklyData.length === 0) {
+				logger.error(`[Discord.js] 😣 조회할 수 있는 데이터가 없어요!`)
+				await interaction.editReply(`😣 조회할 수 있는 데이터가 없어요!`)
+				return
+			}
+
+			// process ranking data
+			const embedData = weeklyData.map((item: MonthlyAttendanceDataType) => {
+				// format playtime
+				const playTime = dayjs.duration(item.totalPlaytime, 'seconds')
+				const playTimeHour = Math.floor(playTime.asHours()) || '0'
+				const playTimeKR = `${playTimeHour}시간 ${playTime.minutes()}분 ${playTime.seconds()}초`
+				return {
+					...item,
+					username: item._id,
+					playTimeKR,
+				}
+			})
+
+			// reply to command
+			const pageLimit = 8
+			if (embedData.length > pageLimit) {
+				// handle embed field length limit
+				const tmpArr = embedData.slice()
+				let pageLength = Math.ceil(embedData.length / 8)
+
+				// split data
+				for (let i = 0; i < pageLength; i++) {
+					const start = pageLimit * i
+					const data = tmpArr.slice(start, pageLimit * (i + 1))
+
+					// create embed
+					const logEmbed = weeklyAttendanceEmbed(weekStart, weekEnd, data, start)
+
+					// send embed message to log channel
+					const channel = client.channels.cache.get(ATTENDANCE_LOG_CHANNEL_ID) as TextChannel
+					channel.send({ embeds: [logEmbed] })
+				}
+			} else {
+				// create embed
+				const logEmbed = weeklyAttendanceEmbed(weekStart, weekEnd, embedData)
+
+				// send embed message to log channel
+				const channel = client.channels.cache.get(ATTENDANCE_LOG_CHANNEL_ID) as TextChannel
+				channel.send({ embeds: [logEmbed] })
+			}
+
+			// log
+			logger.info(`[Discord.js] 🎊 ${weekStart}~${weekEnd} 주간 출석 달성현황이 출력됬어요!`)
+
+			// reply to user
+			await interaction.editReply(`🎊 ${weekStart}~${weekEnd} 주간 출석 달성현황이 출력됬어요!`)
 		} else if (subCommand === '랭킹') {
 			// get monthly attendance ranking
 			const rankingData = await getMonthlyRanking(rankYearMonth, rankCount)
