@@ -12,7 +12,7 @@ import Attendance from '../models/attendance'
  * check today's attendance log of specific user
  */
 const checkTodayUserLog = async (username: string) => {
-	const now = dayjs(new Date())
+	const now = dayjs()
 	const dateKey = now.format('YYYY-MM-DD')
 
 	// get today's attendance log
@@ -38,8 +38,7 @@ const checkTodayUserLog = async (username: string) => {
  * get today's attendance log of specific user
  */
 const getTodayAttendance = async (username: string) => {
-	const now = dayjs(new Date())
-	const dateKey = now.format('YYYY-MM-DD')
+	const dateKey = dayjs().format('YYYY-MM-DD')
 
 	// get today's attendance log
 	return await Attendance.getTodayAttendance(username, dateKey)
@@ -49,7 +48,7 @@ const getTodayAttendance = async (username: string) => {
  * update last login time of specific user
  */
 const updateLastLogin = async (username: string) => {
-	const now = dayjs(new Date())
+	const now = dayjs()
 	const dateKey = now.format('YYYY-MM-DD')
 
 	// update document
@@ -62,7 +61,7 @@ const updateLastLogin = async (username: string) => {
  * update logout time of specific user
  */
 const updateLastLogout = async (username: string) => {
-	const now = dayjs(new Date())
+	const now = dayjs()
 	const dateKey = now.format('YYYY-MM-DD')
 
 	// get today's attendance log

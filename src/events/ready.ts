@@ -2,7 +2,7 @@
 import { Events, Client } from 'discord.js'
 
 // utilities
-import updatePresence from '../utils/updatePresence.js'
+import updatePresence from '../utils/updatePresence'
 
 // logger
 import logger from '../../winston/winston.js'

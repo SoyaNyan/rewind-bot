@@ -71,7 +71,7 @@ export const attendanceEmbed = (payload: AttendancePayloadType) => {
 			value: `${monthly}일`,
 		})
 		.setFooter({
-			text: `Rewind Again - ${dayjs(new Date()).format('YYYY-MM-DD HH:mm:ss')}`,
+			text: `Rewind Again - ${dayjs().format('YYYY-MM-DD HH:mm:ss')}`,
 			iconURL: FOOTER_IMAGE,
 		})
 }
@@ -92,7 +92,7 @@ export const attendanceRankingEmbed = (
 		.setDescription('이달의 출근왕은 TOP3 까지!! 🎉')
 		.setThumbnail(AUTHOR_IMAGE)
 		.setFooter({
-			text: `Rewind Again - ${dayjs(new Date()).format('YYYY-MM-DD HH:mm:ss')}`,
+			text: `Rewind Again - ${dayjs().format('YYYY-MM-DD HH:mm:ss')}`,
 			iconURL: FOOTER_IMAGE,
 		})
 

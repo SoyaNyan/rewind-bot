@@ -62,7 +62,7 @@ const handleAttendanceMessage = async (message: Message) => {
 		const playTimeKR = `${playTime.hours()}시간 ${playTime.minutes()}분 ${playTime.seconds()}초`
 
 		// get monthly attendance
-		const yearMonth = dayjs(new Date()).format('YYYY-MM')
+		const yearMonth = dayjs().format('YYYY-MM')
 		const monthlyAttendance = await getMonthlyAttendance(yearMonth, username)
 
 		// create embed

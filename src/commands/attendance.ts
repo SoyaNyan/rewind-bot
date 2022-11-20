@@ -123,7 +123,7 @@ const attendance = {
 			const todayAttendance = await getTodayAttendance(playerName)
 
 			// get monthly attendance
-			const yearMonth = dayjs(new Date()).format('YYYY-MM')
+			const yearMonth = dayjs().format('YYYY-MM')
 			const monthlyAttendance = await getMonthlyAttendance(yearMonth, playerName)
 
 			// check data
