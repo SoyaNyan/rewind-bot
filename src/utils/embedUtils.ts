@@ -88,7 +88,7 @@ export const weeklyAttendanceEmbed = (
 	// create embed
 	const embed = new EmbedBuilder()
 		.setColor('#A2E1DB')
-		.setTitle(`📅  ${weekStart}~${weekEnd} 주간 출석 달성현황`)
+		.setTitle(`📅  ${weekStart} ~ ${weekEnd} 주간 출석 달성현황`)
 		.setDescription('이번 주 7회 출석을 달성했어요! 🎉')
 		.setThumbnail(AUTHOR_IMAGE)
 		.setFooter({

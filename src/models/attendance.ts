@@ -129,7 +129,7 @@ attendanceScheme.static('getWeeklyStats', function getWeeklyStats(start, end) {
 				totalAttd: {
 					$sum: 1,
 				},
-				totalPlayTime: {
+				totalPlaytime: {
 					$sum: '$playTime',
 				},
 			},
