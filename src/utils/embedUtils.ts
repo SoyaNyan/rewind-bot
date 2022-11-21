@@ -133,7 +133,7 @@ export const attendanceRankingEmbed = (
 	const embed = new EmbedBuilder()
 		.setColor('#FFC8A2')
 		.setTitle(`📅  ${yearMonth}의 출석랭킹 TOP${count}`)
-		.setDescription('이달의 출근왕은 TOP3 까지!! 🎉')
+		.setDescription('이달의 출석왕은 TOP5 까지!! 🎉')
 		.setThumbnail(AUTHOR_IMAGE)
 		.setFooter({
 			text: `Rewind Again - ${dayjs().format('YYYY-MM-DD HH:mm:ss')}`,
