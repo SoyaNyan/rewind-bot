@@ -46,7 +46,7 @@ const handleItemUsageMessage = async (message: Message) => {
 	if (isEnchantScroll) {
 		// parse data
 		const [playerName, itemName, enchant, enchantName, level, result] = content
-			.split(LOG_PREFIX.enchantScroll)[0]
+			.split(LOG_PREFIX.enchantScroll)[1]
 			.replace(LOG_PREFIX.enchantScroll, '')
 			.split('\\|')
 		const data = {
@@ -77,7 +77,7 @@ const handleItemUsageMessage = async (message: Message) => {
 	if (isEnchantScrollRecipe) {
 		// parse data
 		const [playerName, scrollRecipeType, scrollRecipeName, scroll, scrollName] = content
-			.split(LOG_PREFIX.enchantScrollRecipe)[0]
+			.split(LOG_PREFIX.enchantScrollRecipe)[1]
 			.replace(LOG_PREFIX.enchantScrollRecipe, '')
 			.split('\\|')
 
@@ -106,7 +106,7 @@ const handleItemUsageMessage = async (message: Message) => {
 	if (isRandomBox) {
 		// parse data
 		const [playerName, randomBox, randomBoxName, prize, prizeName, quantity] = content
-			.split(LOG_PREFIX.randomBox)[0]
+			.split(LOG_PREFIX.randomBox)[1]
 			.replace(LOG_PREFIX.randomBox, '')
 			.split('\\|')
 

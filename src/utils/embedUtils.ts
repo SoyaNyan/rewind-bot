@@ -228,7 +228,7 @@ export const enchantScrollEmbed = (payload: EnchantScrollDataType) => {
 			},
 			{
 				name: '인챈트 레벨',
-				value: level,
+				value: `+${level}`,
 				inline: true,
 			},
 			{
