@@ -7,7 +7,7 @@ import handleItemUsageMessage from '../handlers/itemUsageLogHandler'
 
 // get configs
 import * as config from '../config/config'
-const { SERVER_LOG_CHANNEL_ID } = config
+const { SERVER_LOG_CHANNEL_ID, SERVER_CONSOLE_CHANNEL_ID } = config
 
 // set event
 const messageCreateEvent = {
@@ -18,7 +18,7 @@ const messageCreateEvent = {
 			await handleAttendanceMessage(message)
 		}
 		// server console channel
-		if (message.channelId === SERVER_LOG_CHANNEL_ID) {
+		if (message.channelId === SERVER_CONSOLE_CHANNEL_ID) {
 			await handleItemUsageMessage(message)
 		}
 	},
