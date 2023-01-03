@@ -22,6 +22,29 @@ export type MonthlyAttendanceDataType = {
 	totalPlaytime: number
 	playTimeKR?: string
 }
+export type EnchantScrollDataType = {
+	playerName: string
+	itemName: string
+	enchant: string
+	enchantName: string
+	level: string
+	result: string
+}
+export type EnchantScrollRecipeDataType = {
+	playerName: string
+	scrollRecipeType: string
+	scrollRecipeName: string
+	scroll: string
+	scrollName: string
+}
+export type RandomBoxDataType = {
+	playerName: string
+	randomBox: string
+	randomBoxName: string
+	prize: string
+	prizeName: string
+	quantity: string
+}
 
 /**
  * attendance log embed
@@ -160,6 +183,149 @@ export const attendanceRankingEmbed = (
 			}
 		)
 	})
+
+	return embed
+}
+
+/**
+ * enchant scroll log embed
+ */
+export const enchantScrollEmbed = (payload: EnchantScrollDataType) => {
+	const { playerName, itemName, enchant, enchantName, level, result } = payload
+
+	// create embed
+	const embed = new EmbedBuilder()
+		.setColor('#FFC8A2')
+		.setTitle(`🪧  강화 주문서 사용 로그`)
+		.setDescription(`${playerName}님이 아이템을 사용했어요!`)
+		.setThumbnail(AUTHOR_IMAGE)
+		.setFooter({
+			text: `Rewind Again - ${dayjs().format('YYYY-MM-DD HH:mm:ss')}`,
+			iconURL: FOOTER_IMAGE,
+		})
+		.addFields(
+			{
+				name: '닉네임',
+				value: playerName,
+				inline: true,
+			},
+			{
+				name: '강화 아이템',
+				value: itemName,
+				inline: true,
+			},
+			{
+				name: '\u200B',
+				value: '\u200B',
+				inline: true,
+			}
+		)
+		.addFields(
+			{
+				name: '인챈트 이름',
+				value: enchantName,
+				inline: true,
+			},
+			{
+				name: '인챈트 레벨',
+				value: level,
+				inline: true,
+			},
+			{
+				name: '인챈트 결과',
+				value: result === 'success' ? '성공' : '실패',
+				inline: true,
+			}
+		)
+
+	return embed
+}
+
+/**
+ * enchant scroll recipe log embed
+ */
+export const enchantScrollRecipeEmbed = (payload: EnchantScrollRecipeDataType) => {
+	const { playerName, scrollRecipeType, scrollRecipeName, scroll, scrollName } = payload
+
+	const embed = new EmbedBuilder()
+		.setColor('#F6EAC2')
+		.setTitle(`📜  강화 주문서 레시피 사용 로그`)
+		.setDescription(`${playerName}님이 아이템을 사용했어요!`)
+		.setThumbnail(AUTHOR_IMAGE)
+		.setFooter({
+			text: `Rewind Again - ${dayjs().format('YYYY-MM-DD HH:mm:ss')}`,
+			iconURL: FOOTER_IMAGE,
+		})
+		.addFields(
+			{
+				name: '닉네임',
+				value: playerName,
+				inline: false,
+			},
+			{
+				name: '레시피 이름',
+				value: scrollRecipeName,
+				inline: false,
+			},
+			{
+				name: '획득 주문서',
+				value: scrollName,
+				inline: false,
+			}
+		)
+
+	return embed
+}
+
+/**
+ * random box prize log embed
+ */
+export const randomBoxEmbed = (payload: RandomBoxDataType) => {
+	const { playerName, randomBox, randomBoxName, prize, prizeName, quantity } = payload
+
+	const embed = new EmbedBuilder()
+		.setColor('#ECEAE4')
+		.setTitle(`💎  랜덤박스 사용 로그`)
+		.setDescription(`${playerName}님이 아이템을 사용했어요!`)
+		.setThumbnail(AUTHOR_IMAGE)
+		.setFooter({
+			text: `Rewind Again - ${dayjs().format('YYYY-MM-DD HH:mm:ss')}`,
+			iconURL: FOOTER_IMAGE,
+		})
+		.addFields(
+			{
+				name: '닉네임',
+				value: playerName,
+				inline: true,
+			},
+			{
+				name: '랜덤박스 이름',
+				value: randomBoxName,
+				inline: true,
+			},
+			{
+				name: '\u200B',
+				value: '\u200B',
+				inline: true,
+			}
+		)
+		.addFields(
+			{
+				name: '상품 아이템',
+				value: prizeName,
+				inline: true,
+			},
+			{
+				name: '상품 수량',
+				value: `${quantity}개`,
+				inline: true,
+			},
+			{
+				name: '\u200B',
+				value: '\u200B',
+				inline: true,
+			}
+		)
 
 	return embed
 }
