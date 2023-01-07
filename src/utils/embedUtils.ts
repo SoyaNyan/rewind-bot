@@ -206,12 +206,12 @@ export const enchantScrollEmbed = (payload: EnchantScrollDataType) => {
 		.addFields(
 			{
 				name: '닉네임',
-				value: playerName,
+				value: `\`${playerName}\``,
 				inline: true,
 			},
 			{
 				name: '강화 아이템',
-				value: itemName,
+				value: `\`${itemName}\``,
 				inline: true,
 			},
 			{
@@ -223,17 +223,17 @@ export const enchantScrollEmbed = (payload: EnchantScrollDataType) => {
 		.addFields(
 			{
 				name: '인챈트 이름',
-				value: enchantName,
+				value: `\`${enchantName}\``,
 				inline: true,
 			},
 			{
 				name: '인챈트 레벨',
-				value: `+${level}`,
+				value: `\`+${level}\``,
 				inline: true,
 			},
 			{
 				name: '인챈트 결과',
-				value: result === 'success' ? '성공' : '실패',
+				value: `\`${result === 'success' ? '성공' : '실패'}\``,
 				inline: true,
 			}
 		)
@@ -259,17 +259,17 @@ export const enchantScrollRecipeEmbed = (payload: EnchantScrollRecipeDataType) =
 		.addFields(
 			{
 				name: '닉네임',
-				value: playerName,
+				value: `\`${playerName}\``,
 				inline: false,
 			},
 			{
 				name: '레시피 이름',
-				value: scrollRecipeName,
+				value: `\`${scrollRecipeName}\``,
 				inline: false,
 			},
 			{
 				name: '획득 주문서',
-				value: scrollName,
+				value: `\`${scrollName}\``,
 				inline: false,
 			}
 		)
@@ -295,12 +295,12 @@ export const randomBoxEmbed = (payload: RandomBoxDataType) => {
 		.addFields(
 			{
 				name: '닉네임',
-				value: playerName,
+				value: `\`${playerName}\``,
 				inline: true,
 			},
 			{
 				name: '랜덤박스 이름',
-				value: randomBoxName,
+				value: `\`${randomBoxName}\``,
 				inline: true,
 			},
 			{
@@ -312,12 +312,12 @@ export const randomBoxEmbed = (payload: RandomBoxDataType) => {
 		.addFields(
 			{
 				name: '상품 아이템',
-				value: prizeName,
+				value: `\`${prizeName}\``,
 				inline: true,
 			},
 			{
 				name: '상품 수량',
-				value: `${quantity}개`,
+				value: `\`${quantity} 개\``,
 				inline: true,
 			},
 			{
