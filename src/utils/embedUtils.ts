@@ -60,6 +60,7 @@ export const attendanceEmbed = (payload: AttendancePayloadType) => {
 		.setColor('#FF968A')
 		.setTitle(`📅  ${username}님의 출석현황`)
 		.setDescription(desc)
+		.setThumbnail(`https://mc-heads.net/avatar/${username}`)
 		.addFields(
 			{
 				name: '출석일자',
@@ -198,7 +199,7 @@ export const enchantScrollEmbed = (payload: EnchantScrollDataType) => {
 		.setColor('#FFC8A2')
 		.setTitle(`🪧  강화 주문서 사용 로그`)
 		.setDescription(`${playerName}님이 아이템을 사용했어요!`)
-		.setThumbnail(AUTHOR_IMAGE)
+		.setThumbnail(`https://mc-heads.net/avatar/${playerName}`)
 		.setFooter({
 			text: `Rewind Again - ${dayjs().format('YYYY-MM-DD HH:mm:ss')}`,
 			iconURL: FOOTER_IMAGE,
@@ -251,7 +252,7 @@ export const enchantScrollRecipeEmbed = (payload: EnchantScrollRecipeDataType) =
 		.setColor('#F6EAC2')
 		.setTitle(`📜  강화 주문서 레시피 사용 로그`)
 		.setDescription(`${playerName}님이 아이템을 사용했어요!`)
-		.setThumbnail(AUTHOR_IMAGE)
+		.setThumbnail(`https://mc-heads.net/avatar/${playerName}`)
 		.setFooter({
 			text: `Rewind Again - ${dayjs().format('YYYY-MM-DD HH:mm:ss')}`,
 			iconURL: FOOTER_IMAGE,
@@ -287,7 +288,7 @@ export const randomBoxEmbed = (payload: RandomBoxDataType) => {
 		.setColor('#ECEAE4')
 		.setTitle(`💎  랜덤박스 사용 로그`)
 		.setDescription(`${playerName}님이 아이템을 사용했어요!`)
-		.setThumbnail(AUTHOR_IMAGE)
+		.setThumbnail(`https://mc-heads.net/avatar/${playerName}`)
 		.setFooter({
 			text: `Rewind Again - ${dayjs().format('YYYY-MM-DD HH:mm:ss')}`,
 			iconURL: FOOTER_IMAGE,
