@@ -81,7 +81,7 @@ export const attendanceEmbed = (payload: AttendancePayloadType) => {
 		.addFields(
 			{
 				name: '오늘 접속시간',
-				value: `${playTimeKR}`,
+				value: `\`${playTimeKR}\``,
 				inline: true,
 			},
 			{
@@ -92,7 +92,7 @@ export const attendanceEmbed = (payload: AttendancePayloadType) => {
 		)
 		.addFields({
 			name: '이번달 출석일 수',
-			value: `${monthly}일`,
+			value: `\`${monthly} 일\``,
 		})
 		.setFooter({
 			text: `Rewind Again - ${dayjs().format('YYYY-MM-DD HH:mm:ss')}`,
@@ -125,17 +125,17 @@ export const weeklyAttendanceEmbed = (
 		embed.addFields(
 			{
 				name: `TOP ${index + 1 + start}`,
-				value: `${item.username}`,
+				value: `\`${item.username}\``,
 				inline: true,
 			},
 			{
 				name: `누적 접속시간`,
-				value: `${item.playTimeKR}`,
+				value: `\`${item.playTimeKR}\``,
 				inline: true,
 			},
 			{
 				name: `출석횟수`,
-				value: `${item.totalAttd}회`,
+				value: `\`${item.totalAttd} 회\``,
 				inline: true,
 			}
 		)
@@ -169,17 +169,17 @@ export const attendanceRankingEmbed = (
 		embed.addFields(
 			{
 				name: `TOP ${index + 1 + start}`,
-				value: `${item.username}`,
+				value: `\`${item.username}\``,
 				inline: true,
 			},
 			{
 				name: `누적 접속시간`,
-				value: `${item.playTimeKR}`,
+				value: `\`${item.playTimeKR}\``,
 				inline: true,
 			},
 			{
 				name: `출석횟수`,
-				value: `${item.totalAttd}회`,
+				value: `\`${item.totalAttd} 회\``,
 				inline: true,
 			}
 		)
