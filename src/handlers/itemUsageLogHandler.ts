@@ -50,7 +50,7 @@ const handleItemUsageMessage = async (message: Message) => {
 			.replace(LOG_PREFIX.enchantScroll, '')
 			.split('\\|')
 		const data = {
-			playerName,
+			playerName: playerName.replaceAll('\\', ''),
 			itemName,
 			enchant,
 			enchantName,
@@ -82,7 +82,7 @@ const handleItemUsageMessage = async (message: Message) => {
 			.split('\\|')
 
 		const data = {
-			playerName,
+			playerName: playerName.replaceAll('\\', ''),
 			scrollRecipeType,
 			scrollRecipeName,
 			scroll,
@@ -111,7 +111,7 @@ const handleItemUsageMessage = async (message: Message) => {
 			.split('\\|')
 
 		const data = {
-			playerName,
+			playerName: playerName.replaceAll('\\', ''),
 			randomBox,
 			randomBoxName,
 			prize,
