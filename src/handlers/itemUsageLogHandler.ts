@@ -45,7 +45,7 @@ const handleItemUsageMessage = async (message: Message) => {
 	// enchant scroll log
 	if (isEnchantScroll) {
 		// parse data
-		const [playerName, itemName, enchant, enchantName, level, result] = content
+		const [playerName, itemName, enchant, enchantName, level, result, sideEffect] = content
 			.split(LOG_PREFIX.enchantScroll)[1]
 			.replace(LOG_PREFIX.enchantScroll, '')
 			.split('\\|')
@@ -56,13 +56,14 @@ const handleItemUsageMessage = async (message: Message) => {
 			enchantName,
 			level,
 			result,
+			sideEffect: sideEffect === 'true',
 		} satisfies EnchantScrollDataType
 
 		// log
 		logger.info(
 			`[EnchantScroll] ${playerName}님이 ${itemName}의 ${enchantName}+${level} 강화에 ${
-				result === 'success' ? '성공' : '실패'
-			}했습니다.`
+				sideEffect ? '💣' : '✅'
+			}${result === 'success' ? '성공' : '실패'}했습니다.`
 		)
 
 		// create embed

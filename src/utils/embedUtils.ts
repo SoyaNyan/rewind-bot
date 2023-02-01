@@ -29,6 +29,7 @@ export type EnchantScrollDataType = {
 	enchantName: string
 	level: string
 	result: string
+	sideEffect: boolean
 }
 export type EnchantScrollRecipeDataType = {
 	playerName: string
@@ -192,7 +193,7 @@ export const attendanceRankingEmbed = (
  * enchant scroll log embed
  */
 export const enchantScrollEmbed = (payload: EnchantScrollDataType) => {
-	const { playerName, itemName, enchant, enchantName, level, result } = payload
+	const { playerName, itemName, enchant, enchantName, level, result, sideEffect } = payload
 
 	// create embed
 	const embed = new EmbedBuilder()
@@ -216,17 +217,12 @@ export const enchantScrollEmbed = (payload: EnchantScrollDataType) => {
 				inline: true,
 			},
 			{
-				name: '\u200B',
-				value: '\u200B',
+				name: '인챈트 이름',
+				value: `\`${enchantName}\``,
 				inline: true,
 			}
 		)
 		.addFields(
-			{
-				name: '인챈트 이름',
-				value: `\`${enchantName}\``,
-				inline: true,
-			},
 			{
 				name: '인챈트 레벨',
 				value: `\`+${level}\``,
@@ -235,6 +231,11 @@ export const enchantScrollEmbed = (payload: EnchantScrollDataType) => {
 			{
 				name: '인챈트 결과',
 				value: `\`${result === 'success' ? '성공' : '실패'}\``,
+				inline: true,
+			},
+			{
+				name: '하락/파괴 여부',
+				value: `\`${sideEffect ? '💣' : '✅'}\``,
 				inline: true,
 			}
 		)
