@@ -195,6 +195,8 @@ export const attendanceRankingEmbed = (
 export const enchantScrollEmbed = (payload: EnchantScrollDataType) => {
 	const { playerName, itemName, enchant, enchantName, level, result, sideEffect } = payload
 
+	const emoji = result === 'protected' ? '✴️' : sideEffect ? '💣' : '✅'
+
 	// create embed
 	const embed = new EmbedBuilder()
 		.setColor('#FFC8A2')
@@ -235,7 +237,7 @@ export const enchantScrollEmbed = (payload: EnchantScrollDataType) => {
 			},
 			{
 				name: '하락/파괴 여부',
-				value: `\`${sideEffect ? '💣' : '✅'}\``,
+				value: `\`${emoji}\``,
 				inline: true,
 			}
 		)
