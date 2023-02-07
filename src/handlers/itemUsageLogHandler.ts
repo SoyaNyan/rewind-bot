@@ -59,11 +59,13 @@ const handleItemUsageMessage = async (message: Message) => {
 			sideEffect: sideEffect === 'true',
 		} satisfies EnchantScrollDataType
 
+		const emoji = result === 'protected' ? '✴️' : sideEffect ? '💣' : '✅'
+
 		// log
 		logger.info(
-			`[EnchantScroll] ${playerName}님이 ${itemName}의 ${enchantName}+${level} 강화에 ${
-				sideEffect ? '💣' : '✅'
-			}${result === 'success' ? '성공' : '실패'}했습니다.`
+			`[EnchantScroll] ${playerName}님이 ${itemName}의 ${enchantName}+${level} 강화에 ${emoji}${
+				result === 'success' ? '성공' : '실패'
+			}했습니다.`
 		)
 
 		// create embed
