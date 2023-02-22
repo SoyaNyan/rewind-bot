@@ -47,20 +47,10 @@ const handleStockMessage = async (message: Message) => {
 		// save
 		stockLog.push({
 			name,
-			symbol:
-				symbol === '▲'
-					? ':green_circle:'
-					: symbol === '▼'
-					? ':red_circle:'
-					: ':large_orange_diamond:',
+			symbol: symbol === '▲' ? '🟢' : symbol === '▼' ? '🔴' : '🔶',
 			price: formatWithCommas(price).replace('\\', ''),
 			fluct: `${fluct}%`,
-			fluctSymbol:
-				symbol === '▲'
-					? ':arrow_upper_right:'
-					: symbol === '▼'
-					? ':arrow_lower_right:'
-					: ':arrow_right:',
+			fluctSymbol: symbol === '▲' ? '↗️' : symbol === '▼' ? '↘️' : '➡️',
 		})
 	}
 
