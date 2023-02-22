@@ -17,11 +17,11 @@ const messageCreateEvent = {
 		// server log channel
 		if (message.channelId === SERVER_LOG_CHANNEL_ID) {
 			await handleAttendanceMessage(message)
-			await handleStockMessage(message)
 		}
 		// server console channel
 		if (message.channelId === SERVER_CONSOLE_CHANNEL_ID) {
 			await handleItemUsageMessage(message)
+			await handleStockMessage(message)
 		}
 	},
 }
