@@ -52,10 +52,10 @@ const handleStockMessage = async (message: Message) => {
 			fluct: `${fluct}%`,
 			fluctSymbol:
 				symbol === '▲'
-					? '<:arrow_upper_right:>'
+					? ':arrow_upper_right:'
 					: symbol === '▼'
-					? '<:arrow_lower_right:>'
-					: '<:arrow_right:>',
+					? ':arrow_lower_right:'
+					: ':arrow_right:',
 		})
 	}
 

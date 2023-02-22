@@ -368,12 +368,12 @@ export const stockEmbed = (payload: StockDataType[]) => {
 			},
 			{
 				name: `현재주가`,
-				value: `\`${symbol} ${price} 원\``,
+				value: `${symbol} \`${price} 원\``,
 				inline: true,
 			},
 			{
 				name: `주가변동추이`,
-				value: `\`${fluctSymbol} ${fluct}\``,
+				value: `${fluctSymbol} \`${fluct}\``,
 				inline: true,
 			}
 		)
