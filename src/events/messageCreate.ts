@@ -4,10 +4,11 @@ import { Events, Message } from 'discord.js'
 // handlers
 import handleAttendanceMessage from '../handlers/attendanceLogHandler'
 import handleItemUsageMessage from '../handlers/itemUsageLogHandler'
+import handleStockMessage from './../handlers/stockLogHandler'
 
 // get configs
 import * as config from '../config/config'
-const { SERVER_LOG_CHANNEL_ID, SERVER_CONSOLE_CHANNEL_ID } = config
+const { SERVER_LOG_CHANNEL_ID, SERVER_CONSOLE_CHANNEL_ID, STOCK_LOG_CHANNEL_ID } = config
 
 // set event
 const messageCreateEvent = {
@@ -20,6 +21,11 @@ const messageCreateEvent = {
 		// server console channel
 		if (message.channelId === SERVER_CONSOLE_CHANNEL_ID) {
 			await handleItemUsageMessage(message)
+		}
+
+		// stock log channel
+		if (message.channelId === STOCK_LOG_CHANNEL_ID) {
+			await handleStockMessage(message)
 		}
 	},
 }

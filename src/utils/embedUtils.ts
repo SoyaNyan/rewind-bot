@@ -46,6 +46,13 @@ export type RandomBoxDataType = {
 	prizeName: string
 	quantity: string
 }
+export type StockDataType = {
+	name: string
+	symbol: string
+	price: string
+	fluct: string
+	fluctSymbol: string
+}
 
 /**
  * attendance log embed
@@ -330,6 +337,47 @@ export const randomBoxEmbed = (payload: RandomBoxDataType) => {
 				inline: true,
 			}
 		)
+
+	return embed
+}
+
+/**
+ * stock update log embed
+ */
+export const stockEmbed = (payload: StockDataType[]) => {
+	// create embed
+	const embed = new EmbedBuilder()
+		.setColor('#F6EAC2')
+		.setTitle(`📈  주가변동 로그`)
+		.setDescription('매 15분 마다 업데이트!! ⏱')
+		.setThumbnail(AUTHOR_IMAGE)
+		.setFooter({
+			text: `Rewind Again - ${dayjs().format('YYYY-MM-DD HH:mm:ss')}`,
+			iconURL: FOOTER_IMAGE,
+		})
+
+	// add fields
+	payload.forEach((item) => {
+		const { name, symbol, price, fluct, fluctSymbol } = item
+
+		embed.addFields(
+			{
+				name: `주식이름`,
+				value: `\`${name}\``,
+				inline: true,
+			},
+			{
+				name: `현재주가`,
+				value: `\`${symbol} ${price} 원\``,
+				inline: true,
+			},
+			{
+				name: `주가변동추이`,
+				value: `\`${fluctSymbol} ${fluct}\``,
+				inline: true,
+			}
+		)
+	})
 
 	return embed
 }

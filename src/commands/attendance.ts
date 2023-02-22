@@ -233,7 +233,7 @@ const attendance = {
 			if (embedData.length > pageLimit) {
 				// handle embed field length limit
 				const tmpArr = embedData.slice()
-				let pageLength = Math.ceil(embedData.length / 8)
+				let pageLength = Math.ceil(embedData.length / pageLimit)
 
 				// split data
 				for (let i = 0; i < pageLength; i++) {
