@@ -50,7 +50,12 @@ const handleStockMessage = async (message: Message) => {
 			symbol: symbol === '▲' ? '🟢' : symbol === '▼' ? '🔴' : '🔶',
 			price: formatWithCommas(price).replace('\\', ''),
 			fluct: `${fluct}%`,
-			fluctSymbol: symbol === '▲' ? '↗️' : symbol === '▼' ? '↘️' : '➡️',
+			fluctSymbol:
+				symbol === '▲'
+					? '<:arrow_upper_right:>'
+					: symbol === '▼'
+					? '<:arrow_lower_right:>'
+					: '<:arrow_right:>',
 		})
 	}
 
